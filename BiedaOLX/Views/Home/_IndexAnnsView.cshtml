@@ -1,0 +1,39 @@
+﻿@model IEnumerable<BiedaOLX.Core.Models.Domains.Announcement>
+
+<div id="indexAnnsTable" class="mt-5">
+	@if (Model != null && Model.Any())
+	{
+		foreach (var ann in Model)
+		{
+			<div class="mb-4 style=" style="background-color:beige">
+				<div class="row">
+					<div class="col-3">
+						<div class="m-3" style="width:250px; height:160px;">
+							<img src="@ann.ImageFile" style="width:250px; height:160px;" />
+						</div>
+					</div>
+					<div class="col-7">
+						<div class="row">
+							<h2 class="mt-2 ml-2">
+								<strong>
+									<a style="color:black;" href="@Url.Action("AnnouncementReadOnly", "Announcement",
+                            new {id = ann.Id})">
+								@ann.Title
+								</a></strong></h2>
+						</div>
+						<div class="row" style="margin-top:100px;">
+							<p class="ml-1">@ann.City - @ann.CreatedDate.ToString("dd MMMM yyyy")</p>
+						</div>
+					</div>
+					<div class="col-2">
+						<h6 class="d-flex justify-content-end m-3"><strong>@ann.Value zł</strong></h6>
+					</div>
+				</div>
+            </div>
+        }
+	}
+	else
+	{
+		<p class="text-center">Niestety nic nie znaleźliśmy...</p>
+	}
+</div>

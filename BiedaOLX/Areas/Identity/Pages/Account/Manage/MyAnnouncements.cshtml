@@ -1,0 +1,48 @@
+﻿@page
+@model MyAnnouncementsModel
+@{
+	ViewData["Title"] = "Moje Ogłszenia";
+	ViewData["ActivePage"] = ManageNavPages.MyAnnouncements;
+}
+
+<div class="mt-1">
+	@if (Model.Announcements != null && Model.Announcements.Any())
+	{
+		foreach (var ann in Model.Announcements)
+		{
+			<div class="mb-4 style=" style="background-color:beige">
+				<div class="row">
+					<div class="col-3">
+						<div class="m-3" style="width:250px; height:160px;">
+							<img src="@ann.ImageFile" style="width:250px; height:160px;" />
+						</div>
+					</div>
+					<div class="col-7">
+						<div class="row">
+							<h3 class="mt-2" style="margin-left:80px;">
+								<strong>
+									<a style="color:black;" href="@Url.Action("Announcement", "Announcement",
+                            new {id = ann.Id})">@ann.Title</a>
+								</strong>
+
+			</h3>
+						</div>
+						<div class="row" style="margin-top:100px; margin-left:60px;">
+							<p class="ml-1">@ann.City - @ann.CreatedDate.ToString("dd MMMM yyyy")</p>
+						</div>
+					</div>
+					<div class="col-2">
+						<h6 class="d-flex justify-content-end m-3"><strong>@ann.Value zł</strong></h6>
+						<form asp-page-handler="deleteMyAnn" asp-route-id="@ann.Id" method="post">
+							<button class="btn btn-danger ml-4" style="margin-top:35px">Usuń</button>
+						</form>
+					</div>
+				</div>
+			</div>
+		}
+	}
+	else
+	{
+		<p class="text-center">Nie masz jeszcze ogłoszeń...</p>
+	}
+</div>
